@@ -45,11 +45,10 @@ async def get_model(model_name: ModelName) :
 ```
 
 ### 경로를 포함하는 매개변수
-
+매개변수가 가져야 하는 값이 /home/johndoe/myfile.txt와 같이 슬래시로 시작(/)해야 할 수 있습니다.  
+이 경우 URL은: /files//home/johndoe/myfile.txt이며 files과 home 사이에 이중 슬래시(//)가 생깁니다.
 ```python
 @app.get("/files/{file_path:path}")
 async def read_file(file_path:str) :
 	return {"file_path":file_path}
 ```
-매개변수가 가져야 하는 값이 /home/johndoe/myfile.txt와 같이 슬래시로 시작(/)해야 할 수 있습니다.
-이 경우 URL은: /files//home/johndoe/myfile.txt이며 files과 home 사이에 이중 슬래시(//)가 생깁니다.
