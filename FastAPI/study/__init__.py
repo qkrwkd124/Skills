@@ -1,1 +1,1 @@
-from FastAPI.study.common import models
+from FastAPI.study.요청본문 import models
