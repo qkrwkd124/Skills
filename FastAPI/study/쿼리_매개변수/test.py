@@ -42,3 +42,14 @@ async def read_user_item(
 	):
     item = {"item_id": item_id, "needy": needy, "skip": skip, "limit": limit}
     return item
+
+
+# 추가 검증
+from fastapi import Query
+
+@app.get('/items2/')
+async def read_itmes(q: Union[str,None] = Query(default=None, min_length=3, max_length=50)):
+	results = {"items" :[{"item_id": "Foo"}, {"item_id":"Bar"}]}
+	if q :
+		results.update({"q":q})
+	return results
