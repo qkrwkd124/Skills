@@ -53,3 +53,19 @@ async def read_itmes(q: Union[str,None] = Query(default=None, min_length=3, max_
 	if q :
 		results.update({"q":q})
 	return results
+
+
+# 매개변수 리스트 / 다중값
+
+from typing import List
+@app.get('/items3/')
+async def read_items(q:Union[List[str],None] = Query(
+	default=None, 
+	title='Query string',
+	description="lee gunhee babo",
+	alias='leegunhee',
+	deprecated=True
+	)):
+	query_items = { "q": q }
+	return query_items
+

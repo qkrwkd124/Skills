@@ -51,3 +51,19 @@ async def read_file(file_path:str) :
 	return {"file_path":file_path}
 
 
+#메타 데이터 선언
+
+from typing import Union
+from fastapi import Path, Query
+
+@app.get("/items2/{item_id}")
+async def read_itmes(
+	*,
+	item_id : int = Path(title="The ID of the item to get", ge=1),
+	q: Union[str,None] = Query(default=None, alias="item-query")
+):
+	result = {"item_id":item_id}
+	if q :
+		result.update({"q":q})	
+	return result
+

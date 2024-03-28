@@ -66,3 +66,57 @@ async def read_user_item(
  - needy, 필수적인 str.
  - skip, 기본값이 0인 int.
  - limit, 선택적인 int.
+
+
+ ### 추가 검증
+
+ 이제 Query를 매개변수의 기본값으로 사용하여 max_length 매개변수를 50으로 설정합니다.
+ min_length 설정도 가능
+ ```python
+ from fastapi import Query
+
+ @app.get('/items2/')
+async def read_itmes(q: Union[str,None] = Query(default=None, min_length=3, max_length=50)):
+	results = {"items" :[{"item_id": "Foo"}, {"item_id":"Bar"}]}
+	if q :
+		results.update({"q":q})
+	return results
+	
+
+ ```
+ 이는 데이터를 검증할 것이고, 데이터가 유효하지 않다면 명백한 오류를 보여주며, OpenAPI 스키마 경로 작동에 매개변수를 문서화 합니다.
+
+
+ ### 매개변수 리스트 / 다중값
+
+List[str]
+
+ ```python
+from typing import List
+@app.get('/items3/')
+async def read_items(q:Union[List[str],None] = Query(
+	default=None, 
+	title='Query string',
+	description="lee gunhee babo",
+	alias='leegunhee',
+	deprecated=True
+	)):
+	query_items = { "q": q }
+	return query_items
+ ```
+
+ List[str] 대신 list를 직접 사용할 수도 있습니다:
+ 이 경우 FastAPI는 리스트의 내용을 검사하지 않음을 명심하기 바랍니다.
+
+ 예를 들어, List[int]는 리스트 내용이 정수인지 검사(및 문서화)합니다. 하지만 list 단독일 경우는 아닙니다.
+
+제네릭 검증과 메타데이터:
+- alias
+- title
+- description
+- deprecated  
+
+특정 문자열 검증:
+- min_length
+- max_length
+- regex

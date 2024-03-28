@@ -52,3 +52,12 @@ async def get_model(model_name: ModelName) :
 async def read_file(file_path:str) :
 	return {"file_path":file_path}
 ```
+
+### 경로 매개변수 검증
+
+
+- #### 숫자 검증
+	gt: 크거나(greater than)  
+	ge: 크거나 같은(greater than or equal)  
+	lt: 작거나(less than)  
+	le: 작거나 같은(less than or equal)
